@@ -2,7 +2,7 @@
 
 namespace Stone.ServiceContract
 {
-    public class CitiesService : ICitiesService
+    public class CitiesService : ICitiesService,IDisposable
     {
         public Guid ServiceInstanceID 
         
@@ -34,6 +34,11 @@ namespace Stone.ServiceContract
         public List<string> GetCities()
         {
             return _cities;
+        }
+
+        public void Dispose()
+        {
+           //TO DO: 
         }
     }
 }
