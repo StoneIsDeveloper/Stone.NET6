@@ -16,6 +16,8 @@ builder.Services.Add(
     )
 );
 
+//builder.Services.AddTransient<ICitiesService, CitiesService>(); 
+
 
 var app = builder.Build();
 
