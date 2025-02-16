@@ -8,17 +8,35 @@ namespace DIExampleWeb.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ICitiesService _citiesService;
-        public HomeController(ILogger<HomeController> logger,
-            ICitiesService citiesService)
+        private readonly ICitiesService _citiesService1;
+        private readonly ICitiesService _citiesService2;
+        private readonly ICitiesService _citiesService3;
+        public HomeController(ILogger<HomeController> logger
+            ,ICitiesService citiesService1
+            ,ICitiesService citiesService2
+            ,ICitiesService citiesService3
+            )
         {
             _logger = logger;
-            _citiesService = citiesService;
+            _citiesService1 = citiesService1;
+            _citiesService2 = citiesService2;
+            _citiesService3 = citiesService3;
         }
 
         public IActionResult Index()
         {
-           var cities =  _citiesService.GetCities();
+            var cities = _citiesService1.GetCities();
+            ViewBag._citiesService1_InstanceID = _citiesService1.ServiceInstanceID;
+            ViewBag._citiesService2_InstanceID = _citiesService2.ServiceInstanceID;
+            ViewBag._citiesService3_InstanceID = _citiesService3.ServiceInstanceID;
+
+
+            return View(cities);
+        }
+
+        public IActionResult Index2([FromServices]ICitiesService citiesService)
+        {
+           var cities = citiesService.GetCities();
 
 
             return View(cities);

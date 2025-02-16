@@ -8,6 +8,9 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h3>Service1: @ViewBag._citiesService1_InstanceID</h3>
+    <h3>Service2: @ViewBag._citiesService2_InstanceID</h3>
+    <h3>Service3: @ViewBag._citiesService3_InstanceID</h3>
     <ul>   
     @foreach(string city in @Model)
     {
