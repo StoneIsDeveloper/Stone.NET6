@@ -51,3 +51,7 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+// cmd to run app use setting Environment
+// $Env:ASPNETCORE_ENVIRONMENT="Staging"
+// dotnet run --no-launch-profile
