@@ -14,8 +14,16 @@
 }
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
+    <environment include="Development">
+    <p style="color:green;">This is the Development environment.</p>
+</environment>
+    <environment include="Staging">
+        <p style="color:green;">This is the Staging environment.</p>
+    </environment>
+
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     <h3>Current Environment: <strong>@Env.EnvironmentName</strong></h3>
+    <h3>ContentRootPath: @Env.ContentRootPath</h3>
     <h3>Current OS: @RuntimeInformation.OSDescription</h3>
     <h3>Service1: @ViewBag._citiesService1_InstanceID</h3>
     <h3>Service2: @ViewBag._citiesService2_InstanceID</h3>

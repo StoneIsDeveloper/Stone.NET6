@@ -10,27 +10,24 @@ namespace DIExampleWeb.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ICitiesService _citiesService1;
-        private readonly ICitiesService _citiesService2;
-        private readonly ICitiesService _citiesService3;
+        //private readonly ICitiesService _citiesService1;
+        //private readonly ICitiesService _citiesService2;
+        //private readonly ICitiesService _citiesService3;
         //private readonly IServiceScopeFactory _serviceScopeFactory;
         private readonly ILifetimeScope _lifetimeScope;
 
-        public HomeController(ILogger<HomeController> logger
-            ,ICitiesService citiesService1
-            ,ICitiesService citiesService2
-            ,ICitiesService citiesService3
-            , ILifetimeScope lifetimeScope
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public HomeController(ILogger<HomeController> logger            
+            , ILifetimeScope lifetimeScope      
+            , IWebHostEnvironment webHostEnvironment
             )
         {
-            _logger = logger;
-            //  _citiesService1 = citiesService1;
-            // _citiesService2 = citiesService2;
-            // _citiesService3 = citiesService3;
+            _logger = logger;         
             _lifetimeScope = lifetimeScope;
+            _webHostEnvironment = webHostEnvironment;
         }
 
-        [Route("some-route")]
+
         public IActionResult Index()
         {
             //var cities = _citiesService1.GetCities();
@@ -54,11 +51,12 @@ namespace DIExampleWeb.Controllers
                 cities = citiesService.GetCities();
             }// Dispose
 
+            var isdev = _webHostEnvironment.IsDevelopment();
+            var root = _webHostEnvironment.ContentRootPath;
 
             return View(cities);
         }
 
-        [Route("some-route")]
         public IActionResult Other()
         {
             return View();
