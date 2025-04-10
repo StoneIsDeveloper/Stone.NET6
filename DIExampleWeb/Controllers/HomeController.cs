@@ -30,6 +30,7 @@ namespace DIExampleWeb.Controllers
             _lifetimeScope = lifetimeScope;
         }
 
+        [Route("some-route")]
         public IActionResult Index()
         {
             //var cities = _citiesService1.GetCities();
@@ -55,6 +56,12 @@ namespace DIExampleWeb.Controllers
 
 
             return View(cities);
+        }
+
+        [Route("some-route")]
+        public IActionResult Other()
+        {
+            return View();
         }
 
         public IActionResult Index2([FromServices]ICitiesService citiesService)

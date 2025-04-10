@@ -4,6 +4,10 @@
 }
 @using Stone.ServiceContract;
 @model IEnumerable<string>
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment Env
+@using System.Runtime.InteropServices
+
+
 @inject ICitiesService citiesService
 @{
     var cityList = citiesService.GetCities();
@@ -11,6 +15,8 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h3>Current Environment: <strong>@Env.EnvironmentName</strong></h3>
+    <h3>Current OS: @RuntimeInformation.OSDescription</h3>
     <h3>Service1: @ViewBag._citiesService1_InstanceID</h3>
     <h3>Service2: @ViewBag._citiesService2_InstanceID</h3>
     <h3>Service3: @ViewBag._citiesService3_InstanceID</h3>
