@@ -5,7 +5,7 @@
 @using System.Management;
 @using Stone.ServiceContract;
 @using System.Net;
-@using System.Runtime.InteropServices
+@using System.Runtime.InteropServices;
 
 @model IEnumerable<string>
 
@@ -32,10 +32,25 @@
         }
     }
 
+    string platform = "Unknown";
+
+    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+    {
+        platform = "Windows";
+    }
+    else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+    {
+        platform = "Linux";
+    }
+    else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+    {
+        platform = "macOS";
+    }
 
 }
 <div class="" style="text-align:left;">
     <h1 class="display-4">Welcome</h1>
+    <h2>OSPlatform: @platform</h2>
     <h2>domain: @domain</h2>    
     <ul>
         @foreach (IPAddress address in addresses)
