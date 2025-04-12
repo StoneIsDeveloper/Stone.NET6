@@ -4,6 +4,7 @@ using System.Diagnostics;
 using Stone.ServiceContract;
 using Autofac;
 using Microsoft.Extensions.DependencyInjection;
+using System.Net;
 
 namespace DIExampleWeb.Controllers
 {
@@ -15,16 +16,19 @@ namespace DIExampleWeb.Controllers
         //private readonly ICitiesService _citiesService3;
         //private readonly IServiceScopeFactory _serviceScopeFactory;
         private readonly ILifetimeScope _lifetimeScope;
+        private readonly IConfiguration _configuration;
 
         private readonly IWebHostEnvironment _webHostEnvironment;
         public HomeController(ILogger<HomeController> logger            
             , ILifetimeScope lifetimeScope      
             , IWebHostEnvironment webHostEnvironment
+            ,IConfiguration configuration
             )
         {
             _logger = logger;         
             _lifetimeScope = lifetimeScope;
             _webHostEnvironment = webHostEnvironment;
+            _configuration = configuration;
         }
 
 
@@ -34,6 +38,7 @@ namespace DIExampleWeb.Controllers
             //  ViewBag._citiesService1_InstanceID = _citiesService1.ServiceInstanceID;
             // ViewBag._citiesService2_InstanceID = _citiesService2.ServiceInstanceID;
             // ViewBag._citiesService3_InstanceID = _citiesService3.ServiceInstanceID;
+
             var cities = new List<string>();
             //using (IServiceScope scope = _serviceScopeFactory.CreateScope())
             //{
@@ -53,6 +58,10 @@ namespace DIExampleWeb.Controllers
 
             var isdev = _webHostEnvironment.IsDevelopment();
             var root = _webHostEnvironment.ContentRootPath;
+            // string myKeyValue = _configuration["MyKey"]; // Reads "Mykey 007"
+
+            var domain = @"www.baidu.com";
+            IPAddress[] addresses = Dns.GetHostAddresses(domain);
 
             return View(cities);
         }

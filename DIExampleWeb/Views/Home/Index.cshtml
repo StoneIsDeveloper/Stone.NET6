@@ -2,32 +2,67 @@
     ViewData["Title"] = "Home Page";
 
 }
+@using System.Management;
 @using Stone.ServiceContract;
-@model IEnumerable<string>
-@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment Env
+@using System.Net;
 @using System.Runtime.InteropServices
 
+@model IEnumerable<string>
 
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment Env
 @inject ICitiesService citiesService
+
+
 @{
     var cityList = citiesService.GetCities();
+    var domain = @"www.google.com";
+    IPAddress[] addresses = Dns.GetHostAddresses(domain);
+
+    var dnsList = new List<string>();
+
+    using (var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_NetworkAdapterConfiguration WHERE IPEnabled = TRUE"))
+    {
+        foreach (ManagementObject mo in searcher.Get())
+        {
+            string[] dnsServers = mo["DNSServerSearchOrder"] as string[];
+            if (dnsServers != null)
+            {
+                dnsList.AddRange(dnsServers);
+            }
+        }
+    }
+
+
 }
-<div class="text-center">
+<div class="" style="text-align:left;">
     <h1 class="display-4">Welcome</h1>
+    <h2>domain: @domain</h2>    
+    <ul>
+        @foreach (IPAddress address in addresses)
+        {
+            <li>@address</li>
+        }
+    </ul>
+    <h2>DNS List</h2>
+    <ul>
+        @foreach (string dns in dnsList)
+        {
+            <li>@dns</li>
+        }
+    </ul>
     <environment include="Development">
-    <p style="color:green;">This is the Development environment.</p>
+    <h2 style="color:green;">This is the Development environment.</h2>
 </environment>
     <environment include="Staging">
-        <p style="color:green;">This is the Staging environment.</p>
+        <h2 style="color:green;">This is the Staging environment.</h2>
     </environment>
-
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+   
     <h3>Current Environment: <strong>@Env.EnvironmentName</strong></h3>
     <h3>ContentRootPath: @Env.ContentRootPath</h3>
     <h3>Current OS: @RuntimeInformation.OSDescription</h3>
-    <h3>Service1: @ViewBag._citiesService1_InstanceID</h3>
+    @* <h3>Service1: @ViewBag._citiesService1_InstanceID</h3>
     <h3>Service2: @ViewBag._citiesService2_InstanceID</h3>
-    <h3>Service3: @ViewBag._citiesService3_InstanceID</h3>
+    <h3>Service3: @ViewBag._citiesService3_InstanceID</h3> *@
     <h3>Service4 InScope: @ViewBag._citiesService4_InstanceID</h3>
     <h3>Service5 : @citiesService.ServiceInstanceID</h3>
     <ul>
