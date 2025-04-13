@@ -58,7 +58,7 @@ namespace DIExampleWeb.Controllers
 
             var isdev = _webHostEnvironment.IsDevelopment();
             var root = _webHostEnvironment.ContentRootPath;
-            // string myKeyValue = _configuration["MyKey"]; // Reads "Mykey 007"
+            string myKeyValue = _configuration["MyKey"]; // Reads "Mykey 007"
 
             var domain = @"www.baidu.com";
             IPAddress[] addresses = Dns.GetHostAddresses(domain);

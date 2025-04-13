@@ -9,6 +9,7 @@ builder.Host.UseServiceProviderFactory(
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Use Autofac for IOC/DI
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuild =>
 {
     containerBuild.RegisterType<CitiesService>().As<ICitiesService>().InstancePerLifetimeScope();
@@ -43,6 +44,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseStaticFiles();
 app.UseRouting();
+
+var mykey = app.Configuration["MyKey"];
+
 
 //app.UseAuthorization();
 

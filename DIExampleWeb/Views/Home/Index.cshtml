@@ -11,7 +11,7 @@
 
 @inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment Env
 @inject ICitiesService citiesService
-
+@inject IConfiguration configuration
 
 @{
     var cityList = citiesService.GetCities();
@@ -47,9 +47,12 @@
         platform = "macOS";
     }
 
+    string myKeyValue = configuration["MyKey"]; // Reads "Mykey 007"
+
 }
 <div class="" style="text-align:left;">
     <h1 class="display-4">Welcome</h1>
+    <h2>MyKey: @myKeyValue</h2>
     <h2>OSPlatform: @platform</h2>
     <h2>domain: @domain</h2>    
     <ul>
